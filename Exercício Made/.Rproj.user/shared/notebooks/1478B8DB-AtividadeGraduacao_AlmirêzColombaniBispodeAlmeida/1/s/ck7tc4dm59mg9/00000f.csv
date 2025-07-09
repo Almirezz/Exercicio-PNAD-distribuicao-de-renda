@@ -1,0 +1,7 @@
+"0",""
+"0","##Usei a base com renda (baseCR) porque não tem rendimentos (total) igual a zero/NA"
+"0","  ggplot(baseCR, aes(x = raca, y = rendimento_todas_fontas, fill = sexo)) +"
+"0","  geom_boxplot() +"
+"0","  scale_y_log10() +  # Para melhor vizualização"
+"0","  labs(title = ""Boxplot de Renda por Sexo e Raça"", x = ""Raça"", y = ""Renda (log)"")"
+"0",""

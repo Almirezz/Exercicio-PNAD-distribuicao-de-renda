@@ -1,0 +1,5 @@
+"0",""
+"0","data <- read.csv(""base.csv"") #abri base que se encontra no mesmo diretório do projeto"
+"0","View(data) # ver como a base foi importada"
+"0",""
+"0","head(data, n = 10) # vizualizar algumas linhas e tipos de variáveis"
