@@ -46,7 +46,10 @@ sum(data$raca %in% c("Preta","Parda")) == sum(base$raca == "Negros")
 #Tirar observações em que renda total igual a 0/Na (base com alguma renda)
 baseCR <- base |> filter(!is.na(rendimento_todas_fontas) & rendimento_todas_fontas != 0)
 
+baseCRT <- base |> filter(!is.na(rend_trabalho_principal) & rend_trabalho_principal != 0)
+
 #Bases filtradas em relação a base original
+nrow(baseCRT)/nrow(data) #0.5198853
 nrow(baseCR)/nrow(data) # 0.803298
 nrow(base)/nrow(data) #0.9999172
 
@@ -61,30 +64,55 @@ prop_genero <-  base |> count(sexo) |> mutate(prop = n/sum(n) )
 
 #Distribuição de renda
 
-
-#Sexo (Com Rendimento)
+#Sexo (Com Renda Total)
 ggplot(baseCR , aes(x = rendimento_todas_fontas, fill= sexo)) +
   geom_histogram() +
   scale_x_log10() +  # Escala logarítmica para melhor visualização
   labs(
-    title = "Distribuição de Renda por Sexo",
+    title = "Distribuição de Renda Total por Sexo",
     x = "Renda (escala log10)",
     y = ""
   ) +
   facet_wrap(~sexo, scales = "free_y", ncol = 1) + # Facetas separadas, free_y porque alguns grupos têm menor representatividade e a ideia é comparar a distribuição
   theme_minimal()
 
-#Raça (Com Rendimento)
+
+#Sexo (Com Renda Total)
 ggplot(baseCR , aes(x = rendimento_todas_fontas, fill= raca)) +
   geom_histogram() +
   scale_x_log10() +  # Escala logarítmica para melhor visualização
   labs(
-    title = "Distribuição de Renda por Raça",
+    title = "Distribuição de Renda Total por Raça",
+    x = "Renda (escala log10)",
+    y = ""
+  ) +
+  facet_wrap(~raca, scales = "free_y", ncol = 1) + # Facetas separadas, free_y porque alguns grupos têm menor representatividade e a ideia é comparar a distribuição
+  theme_minimal()
+
+#Sexo (Com Rendimento do Trabalho)
+ggplot(baseCRT , aes(x = rend_trabalho_principal, fill= sexo)) +
+  geom_histogram() +
+  scale_x_log10() +  # Escala logarítmica para melhor visualização
+  labs(
+    title = "Distribuição de Renda do Trabalho por Sexo",
+    x = "Renda (escala log10)",
+    y = ""
+  ) +
+  facet_wrap(~sexo, scales = "free_y", ncol = 1) + # Facetas separadas, free_y porque alguns grupos têm menor representatividade e a ideia é comparar a distribuição por raça, e coloquei em uma coluna porque estava com dificuldade de vizualizar a diferença em mais colunas, mas dá para mudar o "ncol"
+  theme_minimal()
+
+#Raça (Com Rendimento do trbalho)
+ggplot(baseCRT , aes(x = rend_trabalho_principal, fill= raca)) +
+  geom_histogram() +
+  scale_x_log10() +  # Escala logarítmica para melhor visualização
+  labs(
+    title = "Distribuição de Renda do Trabalho por Raça",
     x = "Renda (escala log10)",
     y = ""
   ) +
   facet_wrap(~raca, scales = "free_y", ncol = 1) + # Facetas separadas, free_y porque alguns grupos têm menor representatividade e a ideia é comparar a distribuição por raça, e coloquei em uma coluna porque estava com dificuldade de vizualizar a diferença em mais colunas, mas dá para mudar o "ncol"
   theme_minimal()
+
 
 ####deixei o ggplot dividir os "bins" automáticamente (ficou dividido em 30 intervalos iguais)
 
